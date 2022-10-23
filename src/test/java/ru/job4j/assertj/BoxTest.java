@@ -3,6 +3,7 @@ package ru.job4j.assertj;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.withPrecision;
 
 class BoxTest {
     @Test
@@ -57,7 +58,17 @@ class BoxTest {
     void cubeArea() {
         Box box = new Box(8, 12);
         double area = box.getArea();
-        assertThat(area).isEqualTo(864.0D);
+        assertThat(area).isEqualTo(864.0D, withPrecision(0.5D))
+                .isGreaterThan(863.2D)
+                .isLessThan(869.2D);
     }
 
+    @Test
+    void sphereArea() {
+        Box box = new Box(0, 10);
+        double area = box.getArea();
+        assertThat(area).isEqualTo(1256.6D, withPrecision(0.5D))
+                .isGreaterThan(1250.1D)
+                .isLessThan(1260.1D);
+    }
 }
