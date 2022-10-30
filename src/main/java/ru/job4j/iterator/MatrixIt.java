@@ -1,5 +1,6 @@
 package ru.job4j.iterator;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -14,14 +15,11 @@ public class MatrixIt implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        while (row < data.length) {
-            if (column < data[row].length) {
-                return true;
-            }
-            column = 0;
+        while (data.length > row && data[row].length <= column) {
             row++;
+            column = 0;
         }
-        return false;
+        return row < data.length;
     }
 
     @Override
