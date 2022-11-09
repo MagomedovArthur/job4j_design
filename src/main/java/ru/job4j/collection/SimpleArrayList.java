@@ -14,14 +14,18 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         this.container = (T[]) new Object[capacity];
     }
 
-    private T[] arrayExpansion(T[] array) {
-        return Arrays.copyOf(array, array.length * 2);
+    private void arrayExpansion(T[] array) {
+        if (array.length == 0) {
+            container = Arrays.copyOf(array, 10);
+        } else {
+            container = Arrays.copyOf(array, array.length * 2);
+        }
     }
 
     @Override
     public void add(T value) {
-        if (size > container.length - 1) {
-            container = arrayExpansion(container);
+        if (size >= container.length || container.length == 0) {
+            arrayExpansion(container);
         }
         container[size++] = value;
         modCount++;
@@ -29,20 +33,18 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+        T oldValue = get(index);
         System.arraycopy(container, index + 1, container,
                 index, container.length - index - 1);
         container[container.length - 1] = null;
-        this.size--;
+        size--;
         modCount++;
         return oldValue;
     }
@@ -66,16 +68,16 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
             @Override
             public boolean hasNext() {
-                return size != 0 && point < container.length;
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                return point < size;
             }
 
             @Override
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                }
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
                 }
                 return container[point++];
             }
