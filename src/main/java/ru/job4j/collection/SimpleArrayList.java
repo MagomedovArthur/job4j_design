@@ -24,7 +24,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public void add(T value) {
-        if (size >= container.length || container.length == 0) {
+        if (size == container.length) {
             arrayExpansion(container);
         }
         container[size++] = value;
