@@ -15,23 +15,21 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     private static class Node<E> {
         E date;
         Node<E> next;
-        Node<E> prev;
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        Node(E element, Node<E> next) {
             this.date = element;
             this.next = next;
-            this.prev = prev;
         }
     }
 
     @Override
     public void add(E value) {
         if (first == null) {
-            Node<E> newNode = new Node<E>(null, value, null);
+            Node<E> newNode = new Node<E>(value, null);
             first = newNode;
             last = newNode;
         } else {
-            Node<E> newNode = new Node<E>(last, value, null);
+            Node<E> newNode = new Node<E>(value, null);
             last.next = newNode;
             last = newNode;
         }
