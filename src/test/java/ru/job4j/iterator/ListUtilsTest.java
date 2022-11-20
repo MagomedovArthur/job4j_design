@@ -51,7 +51,7 @@ class ListUtilsTest {
         input.add(4);
         Predicate<Integer> predicate = s -> s > 5;
         ListUtils.removeIf(input, predicate);
-        assertThat(input).containsSequence(6, 7);
+        assertThat(input).containsSequence(1, 3, 5, 0, 4);
     }
 
     @Test
@@ -61,7 +61,7 @@ class ListUtilsTest {
         input.add(4);
         Predicate<Integer> predicate = s -> s == 7;
         ListUtils.removeIf(input, predicate);
-        assertThat(input).containsSequence(7, 7);
+        assertThat(input).containsSequence(1, 3, 4);
     }
 
     @Test
@@ -71,7 +71,7 @@ class ListUtilsTest {
         input.add(5);
         Predicate<Integer> predicate = s -> s != 95;
         ListUtils.replaceIf(input, predicate, 55);
-        assertThat(input).containsSequence(1, 3, 55, 56, 5);
+        assertThat(input).containsSequence(95);
     }
 
     @Test
