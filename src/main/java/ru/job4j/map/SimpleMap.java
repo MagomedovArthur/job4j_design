@@ -18,10 +18,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean put(K key, V value) {
         boolean result = false;
         expand();
-
-        int hashCodeKey = hash(Objects.hashCode(key));
-        int index = indexFor(hashCodeKey);
-
+        int index = indexByKey(key);
         if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             result = true;
@@ -36,26 +33,36 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int indexFor(int hash) {
-        return hash % (table.length - 1);
+        //return hash % (table.length - 1);
+        return hash & capacity - 1;
     }
 
     private void expand() {
         if (count == (capacity * LOAD_FACTOR)) {
+            int limit = capacity;
             capacity *= 2;
-            table = Arrays.copyOf(table, capacity);
+            MapEntry<K, V>[] tempTable = new MapEntry[capacity];
+            for (int i = 0; i < limit; i++) {
+                if (table[i].value != null) {
+                    int index = indexByKey(table[i].key);
+                    tempTable[index] = new MapEntry<>(table[i].key, table[i].value);
+                }
+            }
+            table = Arrays.copyOf(tempTable, capacity);
         }
+    }
+
+    private int indexByKey(K key) {
+        int hashCodeKey = hash(Objects.hashCode(key));
+        return indexFor(hashCodeKey);
     }
 
     @Override
     public V get(K key) {
         V result = null;
-
-        int hashCodeKey = hash(Objects.hashCode(key));
-        int index = indexFor(hashCodeKey);
-
+        int index = indexByKey(key);
         if (table[index] != null) {
-            int hashCodeKey2 = hash(Objects.hashCode(table[index].key));
-            if (hashCodeKey == hashCodeKey2) {
+            if (Objects.hashCode(key) == Objects.hashCode(table[index].key)) {
                 if (Objects.equals(key, table[index].key)) {
                     result = table[index].value;
                 }
@@ -67,9 +74,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean result = false;
-        if (get(key) != null) {
-            int hashCodeKey = hash(Objects.hashCode(key));
-            int index = indexFor(hashCodeKey);
+        int index = indexByKey(key);
+        if (get(key) != null
+                && Objects.hashCode(key) == Objects.hashCode(table[index].key)
+                && Objects.equals(key, table[index].key)) {
             table[index] = null;
             result = true;
             count--;
