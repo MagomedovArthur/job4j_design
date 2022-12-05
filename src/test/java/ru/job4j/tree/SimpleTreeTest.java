@@ -34,4 +34,36 @@ public class SimpleTreeTest {
         tree.add(5, 6);
         assertThat(tree.add(2, 6)).isFalse();
     }
+
+    @Test
+    void whenFindNonExistentElement() {
+        Tree<Integer> tree = new SimpleTree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 3);
+        tree.add(5, 3);
+        assertThat(tree.findBy(55)).isEmpty();
+    }
+
+    @Test
+    void whenIsBinary() {
+        Tree<Integer> tree = new SimpleTree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertThat(tree.isBinary()).isTrue();
+    }
+
+    @Test
+    void whenIsNotBinary() {
+        Tree<Integer> tree = new SimpleTree<>(1);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        tree.add(5, 9);
+        tree.add(5, 10);
+        assertThat(tree.isBinary()).isFalse();
+    }
 }
