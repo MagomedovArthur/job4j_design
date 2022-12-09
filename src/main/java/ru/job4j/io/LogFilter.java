@@ -10,7 +10,7 @@ public class LogFilter {
         try (BufferedReader in = new BufferedReader(new FileReader(file))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 if (line.contains(" 404 ")) {
-                    list.add(line + "\n");
+                    list.add(line);
                 }
             }
         } catch (IOException e) {
@@ -32,7 +32,9 @@ public class LogFilter {
 
     public static void main(String[] args) {
         List<String> log = filter("log.txt");
-        System.out.println(log);
+        for (String list : log) {
+            System.out.println(list);
+        }
         save(log, "404.txt");
     }
 }
