@@ -25,7 +25,7 @@ class ConfigTest {
                     config.load();
                 }
         );
-        assertThat(exception.getMessage()).isEqualTo("File contains errors!");
+        assertThat(exception.getMessage());
     }
 
     @Test
@@ -38,7 +38,7 @@ class ConfigTest {
                     config.load();
                 }
         );
-        assertThat(exception.getMessage()).isEqualTo("File contains errors!");
+        assertThat(exception.getMessage());
     }
 
     @Test
@@ -51,19 +51,6 @@ class ConfigTest {
                     config.load();
                 }
         );
-        assertThat(exception.getMessage()).isEqualTo("File contains errors!");
-    }
-
-    @Test
-    void whenContainsComments() {
-        IllegalArgumentException exception = Assertions.assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    String path = "./data/file_contains_comments.properties";
-                    Config config = new Config(path);
-                    config.load();
-                }
-        );
-        assertThat(exception.getMessage()).isEqualTo("File contains errors!");
+        assertThat(exception.getMessage());
     }
 }

@@ -19,18 +19,18 @@ public class Config {
     public void load() {
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
-                String[] array = line.split("=", 0);
-                if (array.length == 0
-                        || line.startsWith("#")
-                        || array[0].isEmpty()
-                        || array.length != 2
-                ) {
-                    throw new IllegalArgumentException("File contains errors!");
+                if (!line.startsWith("#") || !line.isEmpty()) {
+                    String[] array = line.split("=", 2);
+                    if (array.length == 0
+                            || array[0].isEmpty()
+                            || array.length != 2
+                    ) {
+                        throw new IllegalArgumentException("File contains errors on line: " + line);
+                    }
+                    String key = array[0];
+                    String value = array[1];
+                    values.put(key, value);
                 }
-                String key = array[0];
-                String value = array[1];
-                values.put(key, value);
-
             }
         } catch (IOException e) {
             e.printStackTrace();
