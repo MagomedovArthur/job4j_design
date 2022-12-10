@@ -21,9 +21,9 @@ public class Config {
             for (String line = in.readLine(); line != null; line = in.readLine()) {
                 if (!line.startsWith("#") || !line.isEmpty()) {
                     String[] array = line.split("=", 2);
-                    if (array.length == 0
+                    if (array.length < 2
                             || array[0].isEmpty()
-                            || array.length != 2
+                            || array[1].isEmpty()
                     ) {
                         throw new IllegalArgumentException("File contains errors on line: " + line);
                     }
