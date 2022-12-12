@@ -12,8 +12,8 @@ public class Dir {
             throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsoluteFile()));
         }
         for (File subfile : file.listFiles()) {
-            System.out.print("Name: " + subfile.getName());
-            System.out.println(" Size: " + subfile.length() + " byte");
+            System.out.printf("Name: %s\n", subfile.getName());
+            System.out.printf("Size: %s byte\n", subfile.length());
         }
     }
 }
