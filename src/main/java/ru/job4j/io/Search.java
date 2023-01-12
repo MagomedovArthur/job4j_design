@@ -24,5 +24,11 @@ public class Search {
         if (args.length == 0) {
             throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
         }
+        if (!args[0].equals("D:")) {
+            throw new IllegalArgumentException("The first parameter must be the start folder!");
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("The first parameter must be an extension!");
+        }
     }
 }
