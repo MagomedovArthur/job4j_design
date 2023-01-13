@@ -23,12 +23,23 @@ public class ArgsName {
         }
 
         for (int i = 0; i < args.length; i++) {
-            if (args[i].startsWith("-")) {
-                String arg = args[i].replaceFirst("-", "");
-                String[] ar = arg.split("=", 2);
-                if (ar.length == 2) {
-                    values.put(ar[0], ar[1]);
-                }
+            if (!args[i].startsWith("-")) {
+                throw new IllegalArgumentException("Missing hyphen sign");
+            }
+            String arg = args[i].replaceFirst("-", "");
+            String[] ar = arg.split("=", 2);
+
+            if (ar.length < 2) {
+                throw new IllegalArgumentException("Missing equals sign");
+            }
+            if (ar[0].isEmpty()) {
+                throw new IllegalArgumentException("Key not found");
+            }
+            if (ar[1].isEmpty()) {
+                throw new IllegalArgumentException("Value not found");
+            }
+            if (ar.length == 2) {
+                values.put(ar[0], ar[1]);
             }
         }
     }
