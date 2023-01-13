@@ -21,14 +21,14 @@ public class Search {
     }
 
     private static void checkArgs(String[] args) {
-        if (args.length == 0) {
+        if (args.length != 2) {
             throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
         }
-        if (!args[0].equals("D:")) {
+        if (!args[0].equals(".")) {
             throw new IllegalArgumentException("The first parameter must be the start folder!");
         }
-        if (!args[1].startsWith(".")) {
-            throw new IllegalArgumentException("The first parameter must be an extension!");
+        if (!args[1].startsWith(".") || !(args[1].length() > 1)) {
+            throw new IllegalArgumentException("The second parameter must be an extension!");
         }
     }
 }
