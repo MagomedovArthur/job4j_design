@@ -11,43 +11,40 @@ public class ArgsName {
         if (!values.containsKey(key)) {
             throw new IllegalArgumentException("Key not found");
         }
-        if (values.get(key).isEmpty()) {
-            throw new IllegalArgumentException("Value not found");
-        }
         return values.get(key);
     }
 
     private void parse(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Array is empty");
-        }
-
         for (int i = 0; i < args.length; i++) {
             if (!args[i].startsWith("-")) {
                 throw new IllegalArgumentException("Missing hyphen sign");
             }
             String arg = args[i].replaceFirst("-", "");
             String[] ar = arg.split("=", 2);
-
-            if (ar.length < 2) {
-                throw new IllegalArgumentException("Missing equals sign");
-            }
-            if (ar[0].isEmpty()) {
-                throw new IllegalArgumentException("Key not found");
-            }
-            if (ar[1].isEmpty()) {
-                throw new IllegalArgumentException("Value not found");
-            }
-            if (ar.length == 2) {
-                values.put(ar[0], ar[1]);
-            }
+            validate(ar);
+            values.put(ar[0], ar[1]);
         }
     }
 
     public static ArgsName of(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Array is empty");
+        }
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
+    }
+
+    private void validate(String[] arr) {
+        if (arr.length < 2) {
+            throw new IllegalArgumentException("Missing equals sign");
+        }
+        if (arr[0].isEmpty()) {
+            throw new IllegalArgumentException("Key not found");
+        }
+        if (arr[1].isEmpty()) {
+            throw new IllegalArgumentException("Value not found");
+        }
     }
 
     public static void main(String[] args) {
