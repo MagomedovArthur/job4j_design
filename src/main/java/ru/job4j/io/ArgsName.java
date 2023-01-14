@@ -20,9 +20,9 @@ public class ArgsName {
                 throw new IllegalArgumentException("Missing hyphen sign");
             }
             String arg = args[i].replaceFirst("-", "");
-            String[] ar = arg.split("=", 2);
-            validate(ar);
-            values.put(ar[0], ar[1]);
+            String[] array = arg.split("=", 2);
+            validate(array, args);
+            values.put(array[0], array[1]);
         }
     }
 
@@ -35,14 +35,19 @@ public class ArgsName {
         return names;
     }
 
-    private void validate(String[] arr) {
-        if (arr.length < 2) {
+    private void validate(String[] array, String[] args) {
+        for (int i = 0; i < args.length; i++) {
+            if (!args[i].startsWith("-")) {
+                throw new IllegalArgumentException("Missing hyphen sign");
+            }
+        }
+        if (array.length < 2) {
             throw new IllegalArgumentException("Missing equals sign");
         }
-        if (arr[0].isEmpty()) {
+        if (array[0].isEmpty()) {
             throw new IllegalArgumentException("Key not found");
         }
-        if (arr[1].isEmpty()) {
+        if (array[1].isEmpty()) {
             throw new IllegalArgumentException("Value not found");
         }
     }
