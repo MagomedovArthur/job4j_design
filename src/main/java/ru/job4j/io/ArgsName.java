@@ -16,9 +16,6 @@ public class ArgsName {
 
     private void parse(String[] args) {
         for (int i = 0; i < args.length; i++) {
-            if (!args[i].startsWith("-")) {
-                throw new IllegalArgumentException("Missing hyphen sign");
-            }
             String arg = args[i].replaceFirst("-", "");
             String[] array = arg.split("=", 2);
             validate(array, args);
