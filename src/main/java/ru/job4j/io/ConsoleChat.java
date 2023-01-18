@@ -23,7 +23,7 @@ public class ConsoleChat {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        List<String> readFile = readPhrases();
+        List<String> phrases = readPhrases();
         boolean switchLoop = true;
         while (switchLoop) {
             String userInput = scanner.nextLine();
@@ -43,7 +43,7 @@ public class ConsoleChat {
                     }
                 }
             } else {
-                String list = readFile.get(new Random().nextInt(readFile.size()));
+                String list = phrases.get(new Random().nextInt(phrases.size()));
                 System.out.println(list);
                 log.add(list);
             }
