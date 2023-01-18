@@ -25,25 +25,26 @@ public class ConsoleChat {
         Scanner scanner = new Scanner(System.in);
         List<String> phrases = readPhrases();
         boolean switchLoop = true;
+        Random randomNumber = new Random();
         while (switchLoop) {
             String userInput = scanner.nextLine();
             log.add(userInput);
-            if (userInput.equals(OUT)) {
+            if (OUT.equals(userInput)) {
                 switchLoop = false;
             } else if (userInput.equals(STOP)) {
-                while (!userInput.equals(CONTINUE)) {
+                while (!CONTINUE.equals(userInput)) {
                     String str = scanner.nextLine();
                     log.add(str);
-                    if (str.equals(OUT)) {
+                    if (OUT.equals(str)) {
                         switchLoop = false;
                         break;
                     }
-                    if (str.equals(CONTINUE)) {
+                    if (CONTINUE.equals(str)) {
                         break;
                     }
                 }
             } else {
-                String list = phrases.get(new Random().nextInt(phrases.size()));
+                String list = phrases.get(randomNumber.nextInt(phrases.size()));
                 System.out.println(list);
                 log.add(list);
             }
