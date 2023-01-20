@@ -12,7 +12,7 @@ public class CSVReader {
         String outPath = argsName.get("out");
         String filter = argsName.get("filter");
         List<String> dataFromFile = readFile(pathTarget);
-        writeFilteredData(dataFromFile, filter, outPath, delimiter);
+        writeFilteredData(dataFromFile, filter, outPath, delimiter, outPath);
     }
 
     private static List<String> readFile(String path) {
@@ -28,7 +28,7 @@ public class CSVReader {
     }
 
     private static void writeFilteredData(List<String> data, String filter,
-                                          String targetFile, String delimiter) {
+                                          String targetFile, String delimiter, String out) {
         List<String> filteredData = new ArrayList<>();
         List<Integer> indices = new ArrayList<>();
         String[] filterField = filter.split(",");
@@ -52,10 +52,17 @@ public class CSVReader {
             }
             filteredData.add(filteredStrings);
         }
-        try (PrintWriter pw = new PrintWriter(new FileWriter(targetFile))) {
-            filteredData.forEach(pw::println);
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if ("stdout".equals(out)) {
+            for (String list : filteredData) {
+                System.out.println(list);
+            }
+        } else {
+            try (PrintWriter pw = new PrintWriter(new FileWriter(targetFile))) {
+                filteredData.forEach(pw::println);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -65,8 +72,11 @@ public class CSVReader {
             throw new IllegalArgumentException("File not found.");
         }
         File fileOut = new File(argsName.get("out"));
-        if (!fileOut.exists()) {
+        if (!"stdout".equals(argsName.get("out")) && !fileOut.exists()) {
             throw new IllegalArgumentException("File not found.");
+        }
+        if (!";".equals(argsName.get("delimiter")) && !",".equals(argsName.get("delimiter"))) {
+            throw new IllegalArgumentException("Incorrect csv file format");
         }
     }
 
