@@ -8,10 +8,17 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        LOG.trace("trace message");
-        LOG.debug("debug message");
-        LOG.info("info message");
-        LOG.warn("warn message");
-        LOG.error("error message");
+        int one = 25;
+        byte two = 20;
+        short three = 90;
+        long four = 32;
+        float five = 23.3F;
+        double six = 95.05;
+        boolean seven = true;
+        char eight = 222;
+        LOG.debug("These are Java primitive types: "
+                        + "int = {},  byte = {}, short = {}, long = {},"
+                        + " float = {}, double = {}, boolean = {},  char = {}",
+                one, two, three, four, five, six, seven, eight);
     }
 }
