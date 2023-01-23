@@ -1,10 +1,20 @@
 package ru.job4j.serialization.xml;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "owner")
 public class PhoneOwner {
 
-    private final String name;
-    private final String lastName;
-    private final int age;
+    @XmlAttribute
+    private String name;
+    @XmlAttribute
+    private String lastName;
+    @XmlAttribute
+    private int age;
+
+    public PhoneOwner() {
+    }
 
     public PhoneOwner(String name, String lastName, int age) {
         this.name = name;
