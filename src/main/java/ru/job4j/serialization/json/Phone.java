@@ -34,6 +34,26 @@ public class Phone {
                 + '}';
     }
 
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public int getYearOfManufacture() {
+        return yearOfManufacture;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public PhoneOwner getPhoneOwner() {
+        return phoneOwner;
+    }
+
+    public String[] getInstalledApplications() {
+        return installedApplications;
+    }
+
     public static void main(String[] args) {
         PhoneOwner phoneOwner = new PhoneOwner("Artur", "Magomedov", 22);
         Phone iphone13Pro = new Phone(true, 2022, "9595NMY005",
