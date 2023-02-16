@@ -8,7 +8,7 @@ create table passport(
   id serial primary key,
   series_number int,
   DOB varchar(255),
-  passport_id serial references person(id)
+  passport_id int references person(id)
 );
 
 insert into person(first_name, last_name) values ('Artur', 'Magomedov');

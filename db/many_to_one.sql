@@ -6,7 +6,7 @@ create table region(
 create table ethnic_group(
   id serial primary key,
   name varchar(255)
-  region_id serial references region(id)
+  region_id int references region(id)
 );
 
 insert into region(name) values ('Dagestan');
