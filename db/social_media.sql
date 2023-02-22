@@ -1,11 +1,11 @@
 create table person(
     id serial primary key,
-    "name" text
+    name text
 );
 
 create table messengers(
     id serial primary key,
-    "name" text,
+    name text,
     person_id int references person(id)
 );
 
