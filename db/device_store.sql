@@ -1,14 +1,14 @@
 create table devices
 (
     id serial primary key,
-    "name" varchar(255),
+    devices_name varchar(255),
     price  float
 );
 
 create table people
 (
     id     serial primary key,
-    "name" varchar(255)
+    people_name varchar(255)
 );
 
 create table devices_people
@@ -18,12 +18,12 @@ create table devices_people
     people_id int references people (id)
 );
 
-insert into devices(name, price)
+insert into devices(devices_name, price)
 values ('iPhone 13 Pro MAX', 100900),
        ('MacBook Pro', 200000),
        ('Apple Watch Series 6', 45000);
 
-insert into people(name)
+insert into people(people_name)
 values ('Artur'),
        ('Enver'),
        ('Kamran');
