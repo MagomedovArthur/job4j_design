@@ -1,0 +1,83 @@
+create table departments
+(
+    id   serial primary key,
+    name text
+);
+
+create table employees
+(
+    id             serial primary key,
+    name           text,
+    departments_id int references departments (id)
+);
+
+insert into departments(name)
+values ('Marketing Department'),
+       ('HR'),
+       ('Finance Department'),
+       ('Sales Department');
+
+insert into employees(name, departments_id)
+values ('Safia', 2),
+       ('Fatima', 2),
+       ('Alina', 2),
+       ('Medina', 2),
+       ('Jon', 1),
+       ('Tom', 1),
+       ('Ali', 3),
+       ('Enver', 4),
+       ('Artur', 4),
+       ('Tamila', null),
+       ('Oleg', null);
+
+insert into departments(name)
+values ('Operations Department');
+
+select *
+from departments d
+         left join employees e on d.id = e.departments_id;
+select *
+from employees e
+         right join departments d on d.id = e.departments_id;
+select *
+from employees e
+         full join departments d on d.id = e.departments_id;
+select *
+from employees e
+         cross join departments d;
+
+select *
+from departments d
+         left join employees e
+                   on d.id = e.departments_id
+where e.id is null;
+
+select d.name, e.name
+from departments d
+         right join employees e on d.id = e.departments_id;
+select d.name, e.name
+from employees e
+         left join departments d on e.departments_id = d.id;
+
+create table teens
+(
+    id     serial primary key,
+    name   text,
+    gender text
+);
+
+insert into teens(name, gender)
+values ('Safia', 'G'),
+       ('Fatima', 'G'),
+       ('Alina', 'G'),
+       ('Medina', 'G'),
+       ('Jon', 'M'),
+       ('Tom', 'M'),
+       ('Ali', 'M'),
+       ('Enver', 'M'),
+       ('Artur', 'M'),
+       ('Tamila', 'G'),
+       ('Oleg', 'M');
+
+select t1.name as m, t2.name as g
+from teens t1 cross join teens t2 where t1.gender != t2.gender;
