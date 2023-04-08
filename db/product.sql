@@ -23,7 +23,7 @@ create or replace function discount()
 $$
 BEGIN
     update products
-    set price = price + (price * 0.10)
+    new.price = new.price + (new.price * 0.10)
     where id = new.id;
     return NEW;
 END;
