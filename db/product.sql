@@ -24,7 +24,6 @@ $$
 BEGIN
     update products
     new.price = new.price + (new.price * 0.10)
-    where id = new.id;
     return NEW;
 END;
 $$
