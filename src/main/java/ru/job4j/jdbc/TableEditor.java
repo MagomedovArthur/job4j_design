@@ -46,6 +46,7 @@ public class TableEditor implements AutoCloseable {
     public void dropTable(String tableName) throws SQLException {
         String script = String.format("DROP TABLE IF EXISTS %s ;", tableName);
         processingRequest(script);
+        System.out.println("Table deleted");
     }
 
     public void addColumn(String tableName, String columnName, String type) throws SQLException {
@@ -104,7 +105,5 @@ public class TableEditor implements AutoCloseable {
         tableEditor.renameColumn("test_table", "name", "new_column");
         System.out.println("4. Rename column:\n" + tableEditor.getTableScheme("test_table"));
         tableEditor.dropTable("test_table");
-        System.out.println("5. Drop table:\n" + tableEditor.getTableScheme("test_table"));
-
     }
 }
