@@ -13,7 +13,7 @@ public class MaxMin {
         return findMaxOrMin(value, comparator.reversed());
     }
 
-    public <T> T findMaxOrMin(List<T> value, Comparator<T> comparator) {
+    private <T> T findMaxOrMin(List<T> value, Comparator<T> comparator) {
         T result = value.get(0);
         for (T nextElement : value) {
             result = comparator.compare(result, nextElement) >= 0 ? result : nextElement;
