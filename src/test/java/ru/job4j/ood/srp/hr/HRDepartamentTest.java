@@ -15,10 +15,9 @@ import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Disabled
 class HRDepartamentTest {
     @Test
-    void generate() {
+    void listingEmployeesInDescendingOrderBySalary() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee ivan = new Employee("Ivan", now, now, 900);
@@ -40,11 +39,6 @@ class HRDepartamentTest {
                 .append(System.lineSeparator())
                 .append(stepan.getName()).append(" ").append(stepan.getSalary())
                 .append(System.lineSeparator());
-
-        /*
-        Predicate<Employee> salaryFilter = empl -> Comparator.comparingDouble(Employee::getSalary).reversed();
-
-        assertThat(hr.generate(salaryFilter)).isEqualTo(expected.toString()); */
+        assertThat(hr.generate(em -> true)).isEqualTo(expected.toString());
     }
-
 }

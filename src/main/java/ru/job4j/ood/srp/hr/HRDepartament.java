@@ -5,7 +5,7 @@ import ru.job4j.ood.srp.model.Employee;
 import ru.job4j.ood.srp.report.Report;
 import ru.job4j.ood.srp.store.Store;
 
-import java.util.Calendar;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class HRDepartament implements Report {
@@ -21,7 +21,10 @@ public class HRDepartament implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        for (Employee employee : store.findBy(filter)) {
+        List<Employee> listEmployees = store.findBy(filter);
+        Collections.sort(listEmployees, Comparator.comparingDouble(Employee::getSalary)
+                .reversed());
+        for (Employee employee : listEmployees) {
             text.append(employee.getName()).append(" ")
                     .append(employee.getSalary())
                     .append(System.lineSeparator());
