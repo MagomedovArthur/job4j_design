@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ControlQuality {
-  //  Store store;
 
     public ControlQuality() {
         Store trashStore = new Trash();
