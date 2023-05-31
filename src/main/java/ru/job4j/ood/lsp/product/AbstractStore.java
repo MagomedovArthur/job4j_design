@@ -2,15 +2,16 @@ package ru.job4j.ood.lsp.product;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class AbstractStore implements Store {
 
     protected final List<Food> foodsList = new ArrayList<>();
 
     @Override
-    public Food add(Food food) {
-        foodsList.add(food);
+    public Food add(Food food, boolean condition) {
+        if (condition) {
+            foodsList.add(food);
+        }
         return food;
     }
 

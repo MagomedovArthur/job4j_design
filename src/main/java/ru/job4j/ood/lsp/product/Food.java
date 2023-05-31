@@ -10,8 +10,10 @@ public class Food {
     private Calendar expiryDate;
     private double price;
     private int discount;
+    private int remainingShelfLife;
 
-    public Food(String name, Calendar createDate, Calendar expiryDate, double price, int discount) {
+    public Food(String name, Calendar createDate, Calendar expiryDate,
+                double price, int discount) {
         this.name = name;
         this.createDate = createDate;
         this.expiryDate = expiryDate;
@@ -57,6 +59,14 @@ public class Food {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public int getRemainingShelfLife() {
+        return remainingShelfLife;
+    }
+
+    public void setRemainingShelfLife(int remainingShelfLife) {
+        this.remainingShelfLife = remainingShelfLife;
     }
 
     @Override

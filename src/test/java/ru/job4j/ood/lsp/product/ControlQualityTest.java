@@ -8,20 +8,37 @@ import java.util.Calendar;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+
 @Disabled
 class ControlQualityTest {
 
     @Test
     void foodDistribution() {
-        ControlQuality controlQuality = new ControlQuality();
-        Calendar createDate = Calendar.getInstance();
-        createDate.set(2023, Calendar.MAY, 1);
-        Calendar expiryDate = Calendar.getInstance();
-        expiryDate.set(2023, Calendar.JUNE, 5);
-        Food cake = new Food("Titamisu", createDate, expiryDate, 700, 35);
-        controlQuality.foodDistribution(cake);
-        List<Food> shopFood = new Shop().findAll();
-        List<Food> expected = List.of(new Food("Titamisu", createDate, expiryDate, 700, 35));
-        assertThat(shopFood).isEqualTo(expected);
+        List<Store> storage = List.of(
+                new Warehouse(),
+                new Trash(),
+                new Shop()
+        );
+        Calendar createDateTiramisu = Calendar.getInstance();
+        createDateTiramisu.set(2023, Calendar.MAY, 30);
+        Calendar expiryDateTiramisu = Calendar.getInstance();
+        expiryDateTiramisu.set(2023, Calendar.JUNE, 30);
+
+        Calendar createDateIceCream = Calendar.getInstance();
+        createDateIceCream.set(2023, Calendar.MAY, 16);
+        Calendar expiryDateIceCream = Calendar.getInstance();
+        expiryDateIceCream.set(2023, Calendar.JUNE, 18);
+
+        List<Food> foods = new ArrayList<>();
+        foods.add(new Food("Tiramisu", createDateTiramisu, expiryDateTiramisu, 700, 30));
+        foods.add(new Food("IceCream", createDateIceCream, expiryDateIceCream, 230, 10));
+
+        ControlQuality controlQuality = new ControlQuality(storage);
+        controlQuality.distribution(foods, storage);
+        List<Food> warehouse = List.of(
+                new Food("Tiramisu", createDateTiramisu, expiryDateTiramisu, 700, 30));
+        List<Food> res = new Warehouse().findAll();
+
+        assertThat(warehouse).isEqualTo(res);
     }
 }
