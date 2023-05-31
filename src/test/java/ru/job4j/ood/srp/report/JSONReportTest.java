@@ -16,10 +16,12 @@ class JSONReportTest {
         Calendar now = Calendar.getInstance();
         Employee ivan = new Employee("Ivan", now, now, 1000);
         store.add(ivan);
+        Employee artur = new Employee("Arthur", now, now, 2000);
+        store.add(artur);
         JSONReport js = new JSONReport(store);
         String expected = "[\n"
                 + "  {\n"
-                + "    \"name\": \"Ivan\",\n"
+                + "    \"name\": \"" + ivan.getName() + "\",\n"
                 + "    \"hired\": {\n"
                 + "      \"year\": " + now.get(Calendar.YEAR) + ",\n"
                 + "      \"month\": " + now.get(Calendar.MONTH) + ",\n"
@@ -36,7 +38,27 @@ class JSONReportTest {
                 + "      \"minute\": " + now.get(Calendar.MINUTE) + ",\n"
                 + "      \"second\": " + now.get(Calendar.SECOND) + "\n"
                 + "    },\n"
-                + "    \"salary\": 1000.0\n"
+                + "    \"salary\": " + ivan.getSalary() + "\n"
+                + "  },\n"
+                + "  {\n"
+                + "    \"name\": \"" + artur.getName() + "\",\n"
+                + "    \"hired\": {\n"
+                + "      \"year\": " + now.get(Calendar.YEAR) + ",\n"
+                + "      \"month\": " + now.get(Calendar.MONTH) + ",\n"
+                + "      \"dayOfMonth\": " + now.get(Calendar.DAY_OF_MONTH) + ",\n"
+                + "      \"hourOfDay\": " + now.get(Calendar.HOUR_OF_DAY) + ",\n"
+                + "      \"minute\": " + now.get(Calendar.MINUTE) + ",\n"
+                + "      \"second\": " + now.get(Calendar.SECOND) + "\n"
+                + "    },\n"
+                + "    \"fired\": {\n"
+                + "      \"year\": " + now.get(Calendar.YEAR) + ",\n"
+                + "      \"month\": " + now.get(Calendar.MONTH) + ",\n"
+                + "      \"dayOfMonth\": " + now.get(Calendar.DAY_OF_MONTH) + ",\n"
+                + "      \"hourOfDay\": " + now.get(Calendar.HOUR_OF_DAY) + ",\n"
+                + "      \"minute\": " + now.get(Calendar.MINUTE) + ",\n"
+                + "      \"second\": " + now.get(Calendar.SECOND) + "\n"
+                + "    },\n"
+                + "    \"salary\": " + artur.getSalary() + "\n"
                 + "  }\n"
                 + "]";
         assertThat(js.generate(e -> true)).isEqualTo(expected);
