@@ -18,8 +18,8 @@ public class CheckDate {
             long numberOfDaysToStoreInMill = expiryDate - createDate;
             long numberOfDaysPassedInDays = TimeUnit.MILLISECONDS.toDays(numberOfDaysPassedInMill);
             long numberOfDaysToStoreInDays = TimeUnit.MILLISECONDS.toDays(numberOfDaysToStoreInMill);
-            int expirationDatePercentage = (int) (numberOfDaysPassedInDays / numberOfDaysToStoreInDays) * 100;
-            food.setRemainingShelfLife(expirationDatePercentage);
+            long expirationDatePercentage = (100 * numberOfDaysPassedInDays) / numberOfDaysToStoreInDays;
+            food.setRemainingShelfLife((int) expirationDatePercentage);
             result.add(food);
         }
         return result;

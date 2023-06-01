@@ -8,19 +8,16 @@ public abstract class AbstractStore implements Store {
     protected final List<Food> foodsList = new ArrayList<>();
 
     @Override
-    public Food add(Food food, boolean condition) {
+    public boolean add(Food food, boolean condition) {
+        boolean result = false;
         if (condition) {
-            foodsList.add(food);
+            result = foodsList.add(food);
         }
-        return food;
+        return result;
     }
 
     @Override
     public List<Food> findAll() {
-        List<Food> result = new ArrayList<>();
-        for (Food food : foodsList) {
-            result.add(food);
-        }
-        return result;
+        return foodsList;
     }
 }
