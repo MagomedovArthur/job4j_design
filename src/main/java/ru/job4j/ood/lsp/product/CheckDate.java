@@ -1,24 +1,18 @@
 package ru.job4j.ood.lsp.product;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class CheckDate {
 
-    public static List<Food> calculatingRemainingExpirationDate(List<Food> foodsList) {
+    public static List<Food> calculatingRemainingExpirationDate(List<Food> foodsList, LocalDate now) {
         List<Food> result = new ArrayList<>();
         for (Food food : foodsList) {
-            Calendar currentTime = Calendar.getInstance();
-            long currentDate = currentTime.getTimeInMillis();
-            long createDate = food.getCreateDate().getTimeInMillis();
-            long expiryDate = food.getExpiryDate().getTimeInMillis();
-            long numberOfDaysPassedInMill = currentDate - createDate;
-            long numberOfDaysToStoreInMill = expiryDate - createDate;
-            long numberOfDaysPassedInDays = TimeUnit.MILLISECONDS.toDays(numberOfDaysPassedInMill);
-            long numberOfDaysToStoreInDays = TimeUnit.MILLISECONDS.toDays(numberOfDaysToStoreInMill);
-            long expirationDatePercentage = (100 * numberOfDaysPassedInDays) / numberOfDaysToStoreInDays;
+            long numberOfDaysPassed = Math.abs(ChronoUnit.DAYS.between(food.getCreateDate(), now));
+            long numberOfDaysToStore = Math.abs(ChronoUnit.DAYS.between(food.getExpiryDate(), food.getCreateDate()));
+            long expirationDatePercentage = (100 * numberOfDaysPassed) / numberOfDaysToStore;
             food.setRemainingShelfLife((int) expirationDatePercentage);
             result.add(food);
         }
